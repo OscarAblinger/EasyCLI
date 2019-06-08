@@ -11,7 +11,8 @@ I couldn't find one that would do what I wanted.
 The need for it had two different reasons:
 
 - I wanted a quick interface without needing to create a GUI
-- I wanted to be able to closely interact and monitor my program in order to properly test it.
+- I wanted to be able to closely interact and monitor my program
+  in order to properly test it.
 
 Obviously, an CLI is perfect for that.
 It is a quick GUI that everyone tech-savy can easily interact with, and
@@ -26,7 +27,116 @@ framework.
 
 # How to use it
 
-> Will soon be added
+In order to use it, first create an instance of the CLI.
+
+```cs
+var cli = EasyCLI.Create();
+```
+
+Now you can register some Commands to your CLI-object.
+It also has a few basic commands itself, that you can use:
+
+```cs
+void echoCmd(EasyCLI cli, CmdInfo cmd) {
+  cli.Out.WriteLine(string.Join(", ", cmd.Arguments));
+}
+
+cli.RegisterCommand(CliCommands.HelpCommand);
+cli.RegisterCommand(CliCommands.ExitCommand);
+cli.RegisterCommand("echo", echoCmd, "Prints the given string");
+```
+
+For more information on Commands and the Arguments class, see
+the [Api Reference](#api-reference), and for an even faster setup,
+see [Using a configuration Object](#using-a-configuration-object).
+
+Afterwards simply start it:
+
+```cs
+cli.Start();
+```
+
+## Common customizations
+
+### Changing the Standard input/output
+
+If you want to change the input or output streams from the standard
+Console, you can do so in the constructor:
+
+```cs
+var cli = EasyCLI.Create(Console.in, Console.out);
+```
+
+You can also do that [using a configuration object](#using-a-configuration-object).
+
+### Using a configuration Object
+
+You can also create a configuration object, in which you can add more
+options, including a list of Commands:
+
+```cs
+var config = new EasyCLI.Configuration() {
+  In = Console.In,
+  Out = Console.Out,
+  Prompt = "> ",
+  ExceptionCatchHandler = (ex) => throw ex, // aborts program on any exception
+  Commands = new List<Command>()
+};
+
+var cli = EasyCLI.Create(config);
+```
+
+For a proper setup, you probably want to extract that configuration
+in its own class.
+
+```cs
+public class Program {
+  public static void Main(string[] args)
+    => EasyCLI.Create(MyCLI.Config).Run();
+}
+
+public class MyCLI {
+  public static Configuration Config;
+
+  static MyCLI {
+    Config = new Configuration() {
+      Greeting = {
+        "Welcome to my app!",
+        "You can type 'help' to see all commands"
+      },
+      Commands = {
+        CliCommands.HelpCommand,
+        CliCommands.ExitCommand,
+        EchoCommand,
+        SumCommand,
+        // CliCommands.Run will automatically create commands the methods
+        // given as parameters (see the API reference for more details)
+        CliCommands.Run(
+          (Func<int, string>)My.StaticMethod,
+          (Action<string>)new My().Method
+        ),
+        // CliCommands.Class will register commands to manage the classes
+        // given as parameters (see the API reference for more details)
+        CliCommands.Class(
+          typeof(My)
+        )
+      }
+    };
+  }
+
+  private static void EchoCommand(EasyCLI cli, CommandInfo cmd) {
+    cli.Out.WriteLine(string.Join(", ", cmd.Arguments));
+  }
+
+  private static void SumCommand(EasyCLI cli, CommandInfo cmd) {
+    int sum = 0;
+    for (int i = 0; i < cmd.Arguments.Length; ++i) {
+      sum += cmd.GetAsInt(i).GetValueOrDefault();
+    }
+    cli.Out.WriteLine($"The sum is: {sum}");
+  }
+}
+```
 
 # Screenshots
 
