@@ -124,16 +124,63 @@ public class MyCLI {
     };
   }
 
-  private static void EchoCommand(EasyCLI cli, IArgumentsInfo argInfo) {
+  private static Command EchoCommand = new Command(
+      names: { "echo" },
+      method: EchoCommandMethod,
+      description: { "Prints arguments to the output" },
+      subCommands: {
+        new Command(
+          names: { "run" },
+          method: EchoRunCommandMethod,
+          description: { "Executes the command and prints the result" }
+        )
+      }
+    );
+
+  private static Command SumCommand = new Command(
+      names: { "sum" },
+      method: SumCommandMethod,
+      description : { "Adds any amount of numbers together" },
+      longOptions: { "integer-only" },
+      // or: options: { new MyOption() }
+      shortOptions: {
+        { "i", "integer-only", false }, // short cut für integer-only
+        { "d", "use-double", true }     // only short command, with name 'use-double'; set by default
+      }
+    );
+
+  private static void EchoCommandMethod(EasyCLI cli, IArgumentsInfo argInfo) {
     cli.Out.WriteLine(string.Join(", ", argInfo.Arguments));
   }
 
-  private static void SumCommand(EasyCLI cli, IArgumentsInfo argInfo) {
-    int sum = 0;
-    for (int i = 0; i < argInfo.Arguments.Length; ++i) {
-      sum += argInfo.GetAsInt(i).GetValueOrDefault();
-    }
+  private static void EchoRunCommandMethod(EasyCLI cli, IArgumentsInfo argInfo) {
+    var cmdResult = cli.RunCommand(String.Join(" ", argInfo.Skip(2)));
+    string cmdResultStr = (cmdResult.returnValue.HasValue)
+                            ? cmdResult.returnValue.Value.ToString()
+                            : "no result";
+
+    cli.Out.WriteLine($"Command returned with {cmdResultStr}.");
+  }
+
+  private static double SumCommandMethod(EasyCLI cli, IArgumentsInfo argInfo) {
+    double sum = 0.0;
+
+    if (argInfo.options["integer-only"])
+      sum = SumAs<int>(argInfo);
+    else if (argInfo.options["use-double"])
+      sum = SumAs<double>(argInfo);
+    else 
+      sum = SumAs<float>(argInfo);
+
     cli.Out.WriteLine($"The sum is: {sum}");
+  }
+
+  private static T SumAs<T>(IArgumentsInfo argInfo) {
+    T sum = default(T);
+    for (int i = 0; i < argInfo.Arguments.Length; ++i) {
+      sum += argInfo.GetAsStruct<T>(i).GetValueOrDefault();
+    }
+    return sum;
   }
 }
 ```
