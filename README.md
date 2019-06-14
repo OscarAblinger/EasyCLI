@@ -37,8 +37,8 @@ Now you can register some Commands to your CLI-object.
 It also has a few basic commands itself, that you can use:
 
 ```cs
-void echoCmd(EasyCLI cli, CmdInfo cmd) {
-  cli.Out.WriteLine(string.Join(", ", cmd.Arguments));
+void echoCmd(EasyCLI cli, IArgumentsInfo argInfo) {
+  cli.Out.WriteLine(string.Join(", ", argInfo.Arguments));
 }
 
 cli.RegisterCommand(CliCommands.HelpCommand);
@@ -124,14 +124,14 @@ public class MyCLI {
     };
   }
 
-  private static void EchoCommand(EasyCLI cli, CommandInfo cmd) {
-    cli.Out.WriteLine(string.Join(", ", cmd.Arguments));
+  private static void EchoCommand(EasyCLI cli, IArgumentsInfo argInfo) {
+    cli.Out.WriteLine(string.Join(", ", argInfo.Arguments));
   }
 
-  private static void SumCommand(EasyCLI cli, CommandInfo cmd) {
+  private static void SumCommand(EasyCLI cli, IArgumentsInfo argInfo) {
     int sum = 0;
-    for (int i = 0; i < cmd.Arguments.Length; ++i) {
-      sum += cmd.GetAsInt(i).GetValueOrDefault();
+    for (int i = 0; i < argInfo.Arguments.Length; ++i) {
+      sum += argInfo.GetAsInt(i).GetValueOrDefault();
     }
     cli.Out.WriteLine($"The sum is: {sum}");
   }
