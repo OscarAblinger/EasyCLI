@@ -29,9 +29,7 @@ namespace EasyCli.impl
             => this.RegisterCommand(new string[] { name }, method, description);
 
         public ICli RegisterCommand(string[] names, CommandMethod method, string[] description = null)
-        {
-            throw new NotImplementedException();
-        }
+            => RegisterCommand(new Command(names, method, description));
 
         public bool IsPrintingToConsole()
         {
