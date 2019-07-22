@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace EasyCli
+﻿namespace EasyCli
 {
     public delegate ICommandResult CommandMethod(ICli cli, IArgumentsInfo argInfo);
 

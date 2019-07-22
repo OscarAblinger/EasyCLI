@@ -1,12 +1,7 @@
-﻿using EasyCli;
-
-namespace EasyCli
+﻿namespace EasyCli
 {
     public static class CliFactory
     {
-        public static ICli Create()
-        {
-            return new Cli();
-        }
+        public static ICli Create() => new Cli();
     }
 }
