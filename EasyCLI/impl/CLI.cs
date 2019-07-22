@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace EasyCli
+namespace EasyCli.impl
 {
     internal class Cli: ICli
     {
