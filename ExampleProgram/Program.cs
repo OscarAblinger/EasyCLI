@@ -1,10 +1,10 @@
-﻿using EasyCliLib;
+﻿using EasyCli;
 
 namespace ExampleProgram
 {
     class Program
     {
         static void Main(string[] args)
-            => EasyCLI.Create().Run();
+            => CliFactory.Create().Run();
     }
 }
