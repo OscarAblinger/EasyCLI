@@ -81,8 +81,8 @@ namespace EasyCli
         /// <summary>
         /// Suspends the cli until the continue command was invoked
         /// </summary>
-        /// <param name="continueCommand">The command that has to be invoked to lift the suspense</param>
-        void WaitUntil(Action continueCommand);
+        /// <returns>The command that has to be invoked to lift the suspense</returns>
+        Action WaitUntil();
         #endregion
     }
 }

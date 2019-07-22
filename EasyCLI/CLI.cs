@@ -19,6 +19,7 @@ namespace EasyCli
         public ICli RegisterCommand(ICommand command)
         {
             Commands.Add(command);
+            return this;
         }
 
         public ICli RegisterCommand(string name, CommandMethod method, string description = "")
@@ -47,7 +48,7 @@ namespace EasyCli
             throw new NotImplementedException();
         }
 
-        public void WaitUntil(Action continueCommand)
+        public Action WaitUntil()
         {
             throw new NotImplementedException();
         }
