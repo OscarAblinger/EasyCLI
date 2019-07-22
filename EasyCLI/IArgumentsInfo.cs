@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace EasyCliLib
+namespace EasyCli
 {
     public interface IArgumentsInfo
     {

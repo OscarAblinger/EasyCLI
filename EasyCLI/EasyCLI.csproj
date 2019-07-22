@@ -1,9 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <AssemblyName>EasyCLI</AssemblyName>
-    <RootNamespace>EasyCliLib</RootNamespace>
+    <TargetFramework>netcoreapp1.0</TargetFramework>
+    <RootNamespace>EasyCli</RootNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="accessors\" />
+  </ItemGroup>
 
 </Project>
