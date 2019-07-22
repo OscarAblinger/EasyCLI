@@ -19,6 +19,7 @@ namespace EasyCli
         public ICli RegisterCommand(ICommand command)
         {
             Commands.Add(command);
+            CommandTree.Add(command);
         }
 
         public ICli RegisterCommand(string name, CommandMethod method, string description = "")
@@ -55,6 +56,7 @@ namespace EasyCli
 
         #region Private
         private List<ICommand> Commands { get; set; }
+        private CommandNode CommandTree { get; set; }
 
         internal Cli() { }
         #endregion
