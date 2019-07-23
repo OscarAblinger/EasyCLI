@@ -4,10 +4,20 @@ namespace EasyCli
 {
     public interface IArgumentsInfo
     {
+        /// <summary>
+        /// The input string without any processing done
+        /// </summary>
         string RawString { get; }
-        string CommandString { get; }
+
+        /// <summary>
+        /// The clean input string with uniform whitespaces
+        /// </summary>
+        string CleanString { get; }
+
+        /// <summary>
+        /// List of all arguments. 0th is the command name itself
+        /// </summary>
         List<string> Arguments { get; }
-        List<string> Options { get; }
 
         int? GetAsInt(int index);
         double? GetAsDouble(int index);

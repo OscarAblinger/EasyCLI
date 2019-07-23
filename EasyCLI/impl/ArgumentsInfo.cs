@@ -1,13 +1,21 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace EasyCli.impl
 {
     internal class ArgumentsInfo : IArgumentsInfo
     {
+        internal ArgumentsInfo(string arguments, dynamic splitInformations)
+        {
+            RawString = arguments;
+            Arguments = SplitString(arguments, splitInformations);
+            CleanString = CleanArgsString(Arguments);
+        }
+
         public string RawString { get; }
-        public string CommandString { get; }
+        public string CleanString { get; }
         public List<string> Arguments { get; }
-        public List<string> Options { get; }
 
         public double? GetAsDouble(int index) => double.TryParse(Arguments[index], out double result) ? result : default(double?);
         public float? GetAsFloat(int index) => float.TryParse(Arguments[index], out float result) ? result : default(float?);
@@ -15,5 +23,21 @@ namespace EasyCli.impl
 
         public T? GetAsStruct<T>(int index) where T : struct => throw new System.NotImplementedException();
         public T GetAsType<T>(int index) where T : class => throw new System.NotImplementedException();
+
+        #region Private Helper Methods
+        private string CleanArgsString(List<string> argumentList)
+        {
+            return string.Join(" ", argumentList);
+        }
+
+        private List<string> SplitString(string arguments, dynamic splitInformations)
+        {
+            // TODO: Support different splitInformations
+            //  with a map of startString -> endString, preferably in a recursive form
+            //  e.g. '{name:"John Doe",parents:{father:"Paul Doe",mother:"Jane Doe"}}'
+            //  should be one section
+            return arguments.Trim().Split(' ').Where(str => !string.IsNullOrWhiteSpace(str)).ToList();
+        }
+        #endregion
     }
 }
