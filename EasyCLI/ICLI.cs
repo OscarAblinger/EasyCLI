@@ -30,7 +30,7 @@ namespace EasyCli
         /// <param name="method">The method that will be invoked</param>
         /// <param name="description">Description of the Command used in the help Command</param>
         /// <returns>The original CLI for chaining commands</returns>
-        ICli RegisterCommand(string name, CommandMethod method, string description = "");
+        ICli RegisterCommand(string name, CommandMethod method, string description);
         /// <summary>
         /// Registers a new Command
         /// </summary>
