@@ -27,6 +27,11 @@ namespace UnitTests.mocks
 
         public static CommandMock CreateWrapper(string[] names, CommandMethod innerCmd, string[] description) => new CommandMock(names, innerCmd, description);
 
+        public static ICommandResult MockCommandMethod(ICli cli, IArgumentsInfo argInfo)
+        {
+            return CommandResultMock.Create();
+        }
+
         private CommandMock(string[] names, string[] description)
         {
             Names = names;
