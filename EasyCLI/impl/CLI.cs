@@ -48,6 +48,7 @@ namespace EasyCli.impl
 
         #region Private
         private Dictionary<string, ICommand> Commands { get; set; }
+        private IConfiguration config;
 
         private void AssertValidCommand(ICommand command)
         {
@@ -67,7 +68,9 @@ namespace EasyCli.impl
             }
         }
 
-        internal Cli() { }
+        internal Cli(IConfiguration config) {
+            this.config = config;
+        }
         #endregion
     }
 }
