@@ -11,12 +11,6 @@ namespace EasyCli
         /// </summary>
         void Run();
 
-        /// <summary>
-        /// Loads the config
-        /// </summary>
-        /// <param name="configuration">Configuration object to load</param>
-        void LoadConfiguration(IConfiguration configuration);
-
         #region Register Command Overloads
         /// <summary>
         /// Registers a new Command
