@@ -89,6 +89,45 @@ namespace UnitTests
         }
         #endregion
 
+        #region Throws correct errors
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
+        public void ThrowsErrorForInvalidNameParameters(ICli cli)
+        {
+            foreach (var invalidName in new string[] { null, "" })
+            {
+                Assert.Throws<ArgumentException>(() => cli.RegisterCommand(invalidName, CommandMock.MockCommandMethod, "validDescripton"));
+                Assert.Throws<ArgumentException>(() => cli.RegisterCommand(invalidName, CommandMock.MockCommandMethod, new string[] { "validDescripton" }));
+            }
+            foreach (var invalidNames in new string[][] { null, new string[] { }, new string[] { null }, new string[] { "" }, new string[] { "", "" }, new string[] { null, "", "validName" } })
+            {
+                Assert.Throws<ArgumentException>(() => cli.RegisterCommand(invalidNames, CommandMock.MockCommandMethod, "validDescripton"));
+                Assert.Throws<ArgumentException>(() => cli.RegisterCommand(invalidNames, CommandMock.MockCommandMethod, new string[] { "validDescripton" }));
+            }
+        }
+
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
+        public void ThrowsErrorForInvalidMethodParameters(ICli cli)
+        {
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommand("validName", null, "validDescripton"));
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, null, "validDescripton"));
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommand("validName", null, new string[] { "validDescripton" }));
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, null, new string[] { "validDescripton" }));
+        }
+
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
+        public void ThrowsCorrectErrorsForInvalidDescriptionParameters(ICli cli)
+        {
+            foreach (var invalidDescription in new string[][] { new string[] { null }, new string[] { "validLine1", null, "validLine2" } })
+            {
+                Assert.Throws<ArgumentException>(() => cli.RegisterCommand("validName", CommandMock.MockCommandMethod, invalidDescription));
+                Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, CommandMock.MockCommandMethod, invalidDescription));
+            }
+        }
+        #endregion
+
         #region Return Same CLI
         [Theory]
         [MemberData(nameof(AllCLIs))]
