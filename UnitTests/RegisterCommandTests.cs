@@ -44,17 +44,17 @@ namespace UnitTests
 
         public static IEnumerable<object[]> CLINameCombinations()
         {
-            return AllMergeCombinations(AllCLIs(), ToObjMatrix(ValidNameOptions));
+            return CliMergeWithParameters(ToObjMatrix(ValidNameOptions));
         }
 
         public static IEnumerable<object[]> CLIDescriptionCombinations()
         {
-            return AllMergeCombinations(AllCLIs(), ToObjMatrix(ValidDescriptionOptions));
+            return CliMergeWithParameters(ToObjMatrix(ValidDescriptionOptions));
         }
 
         public static IEnumerable<object[]> CLINameDescriptionCombinations()
         {
-            return AllMergeCombinations(AllCLIs(),
+            return CliMergeWithParameters(
                 AllMergeCombinations(
                     ToObjMatrix(ValidNameOptions),
                     ToObjMatrix(ValidDescriptionOptions)
@@ -63,7 +63,7 @@ namespace UnitTests
 
         public static IEnumerable<object[]> CLINamesArrayDescriptionCombinations()
         {
-            return AllMergeCombinations(AllCLIs(),
+            return CliMergeWithParameters(
                 AllMergeCombinations(
                     ToObjMatrix(ValidNamesArrayOptions),
                     ToObjMatrix(ValidDescriptionOptions)
@@ -72,7 +72,7 @@ namespace UnitTests
 
         public static IEnumerable<object[]> CLINameDescriptionArrayCombinations()
         {
-            return AllMergeCombinations(AllCLIs(),
+            return CliMergeWithParameters(
                 AllMergeCombinations(
                     ToObjMatrix(ValidNameOptions),
                     ToObjMatrix(ValidDescriptionArrayOptions)
@@ -81,7 +81,7 @@ namespace UnitTests
 
         public static IEnumerable<object[]> CLINamesArrayDescriptionArrayCombinations()
         {
-            return AllMergeCombinations(AllCLIs(),
+            return CliMergeWithParameters(
                 AllMergeCombinations(
                     ToObjMatrix(ValidNamesArrayOptions),
                     ToObjMatrix(ValidDescriptionArrayOptions)
