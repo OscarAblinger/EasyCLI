@@ -1,4 +1,6 @@
-﻿namespace EasyCli
+﻿using EasyCli.impl;
+
+namespace EasyCli
 {
     public static class CliFactory
     {

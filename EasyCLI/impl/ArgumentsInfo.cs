@@ -6,10 +6,11 @@ namespace EasyCli.impl
 {
     internal class ArgumentsInfo : IArgumentsInfo
     {
-        internal ArgumentsInfo(string arguments, dynamic splitInformations)
+        // TODO: add additional parameter of configuration for custom splitting of arguments
+        internal ArgumentsInfo(string arguments)
         {
             RawString = arguments;
-            Arguments = SplitString(arguments, splitInformations);
+            Arguments = SplitString(arguments);
             CleanString = CleanArgsString(Arguments);
         }
 
@@ -30,7 +31,7 @@ namespace EasyCli.impl
             return string.Join(" ", argumentList);
         }
 
-        private List<string> SplitString(string arguments, dynamic splitInformations)
+        private List<string> SplitString(string arguments)
         {
             // TODO: Support different splitInformations
             //  with a map of startString -> endString, preferably in a recursive form
