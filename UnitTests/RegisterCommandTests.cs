@@ -129,6 +129,40 @@ namespace UnitTests
             }
             Assert.Empty(cli.GetCommands());
         }
+
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
+        public void ThrowsCorrectErrorForDuplicateCommands(ICli cli)
+        {
+            cli.RegisterCommand(command);
+
+            Assert.Throws<DuplicateCommandException>(() => cli.RegisterCommand(command));
+        }
+
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
+        public void ThrowsCorrectErrorWhenNameAlreadyExists(ICli cli)
+        {
+            cli.RegisterCommand(command);
+            cli.RegisterCommand("otherCommand", CommandMock.MockCommandMethod, "mockDescription");
+            cli.RegisterCommand(new string[] { "thirdCommand", "tc" }, CommandMock.MockCommandMethod, "mockDescription");
+
+            Assert.Throws<DuplicateCommandException>(() => cli.RegisterCommand(command));
+            Assert.Throws<DuplicateCommandException>(() => cli.RegisterCommand("otherCommand", CommandMock.MockCommandMethod, "other mockDescription"));
+            Assert.Throws<DuplicateCommandException>(() => cli.RegisterCommand("thirdCommand", CommandMock.MockCommandMethod, "third duplicate mockDescription"));
+            Assert.Throws<DuplicateCommandException>(() => cli.RegisterCommand("tc", CommandMock.MockCommandMethod, "third duplicate mockDescription (short)"));
+        }
+
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
+        public void ThrowsCorrectErrorWhenNameDuplicatedInSameCommand(ICli cli)
+        {
+            Assert.Throws<DuplicateCommandException>(() =>
+                cli.RegisterCommand(new string[] { "cmd", "cmd" }, CommandMock.MockCommandMethod, "mockDescription"));
+            Assert.Throws<DuplicateCommandException>(() =>
+                cli.RegisterCommand(new string[] { "cmd", "noCmd", "cmd" }, CommandMock.MockCommandMethod, new string[] { "multiline", "description"}));
+            
+        }
         #endregion
 
         #region Return Same CLI
