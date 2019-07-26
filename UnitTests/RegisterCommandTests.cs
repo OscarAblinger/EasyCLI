@@ -1,4 +1,5 @@
 using EasyCli;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnitTests.mocks;
@@ -27,14 +28,13 @@ namespace UnitTests
             new string[] { "mockName1", "mockName2" },
             new string[] { "mockName1", "mockName2", "mockName3" }
         };
-        public readonly static string[] ValidDescriptionOptions = new string[] { null, "", "mockDescription" };
+        public readonly static string[] ValidDescriptionOptions = new string[] { "", "mockDescription" };
         public readonly static string[][] ValidDescriptionArrayOptions = new string[][] {
             null,
             new string[0],
-            new string[] { null } ,
             new string[] { "" },
             new string[] { "mockDescription" },
-            new string[] { null, "", "mockDescription" }
+            new string[] { "", "mockDescription" }
         };
 
         private static object[][] ToObjMatrix<T>(IEnumerable<T> elem)
