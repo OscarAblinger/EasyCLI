@@ -73,6 +73,11 @@ namespace EasyCli
 
         #region Interaction Properties and Commands
         /// <summary>
+        /// The current list of all commands
+        /// </summary>
+        ICommand[] GetCommands();
+
+        /// <summary>
         /// Wether or not the CLI is targeting a Console element.
         /// Use this to check wether advanced options (like colored output) is possible
         /// </summary>
