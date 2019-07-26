@@ -72,10 +72,14 @@ namespace EasyCli.impl
         {
             if (command.Names == null || command.Names.Length == 0)
                 throw new ArgumentException("Cannot register command: No names provided");
+            if (command.Names.Any(name => string.IsNullOrWhiteSpace(name)))
+                throw new ArgumentException("No name may be null or whitespace");
             if (command.Method == null)
                 throw new ArgumentException("Cannot register command: No method provided");
             if (command.Description == null)
                 throw new ArgumentException("Cannot register command: Description shouldn't be null (use an empty array instead)");
+            if (command.Description.Any(des => des == null))
+                throw new ArgumentException("No description entry may be null");
         }
 
         private void SaveCommandInList(ICommand command)
