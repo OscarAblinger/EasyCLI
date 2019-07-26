@@ -1,7 +1,7 @@
 ﻿using EasyCli;
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UnitTests
 {
@@ -15,7 +15,9 @@ namespace UnitTests
         public static IEnumerable<object[]> AllMergeCombinations(IEnumerable<object[]> first, IEnumerable<object[]> second)
         {
             if (first == null || second == null)
+            {
                 throw new ArgumentException("Neither of the two IEnumerables may be null");
+            }
 
             return from f in first
                    from s in second
