@@ -91,12 +91,6 @@ namespace EasyCli
         ICommandResult RunCommand(string command);
 
         /// <summary>
-        /// Runs a command
-        /// </summary>
-        /// <param name="command">The command to run</param>
-        ICommandResult RunCommand(ICommand command);
-
-        /// <summary>
         /// Suspends the cli until the continue command was invoked
         /// </summary>
         /// <returns>The command that has to be invoked to lift the suspense</returns>
