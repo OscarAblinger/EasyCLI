@@ -104,6 +104,7 @@ namespace UnitTests
                 Assert.Throws<ArgumentException>(() => cli.RegisterCommand(invalidNames, CommandMock.MockCommandMethod, "validDescripton"));
                 Assert.Throws<ArgumentException>(() => cli.RegisterCommand(invalidNames, CommandMock.MockCommandMethod, new string[] { "validDescripton" }));
             }
+            Assert.Empty(cli.GetCommands());
         }
 
         [Theory]
@@ -114,6 +115,7 @@ namespace UnitTests
             Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, null, "validDescripton"));
             Assert.Throws<ArgumentException>(() => cli.RegisterCommand("validName", null, new string[] { "validDescripton" }));
             Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, null, new string[] { "validDescripton" }));
+            Assert.Empty(cli.GetCommands());
         }
 
         [Theory]
@@ -125,6 +127,7 @@ namespace UnitTests
                 Assert.Throws<ArgumentException>(() => cli.RegisterCommand("validName", CommandMock.MockCommandMethod, invalidDescription));
                 Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, CommandMock.MockCommandMethod, invalidDescription));
             }
+            Assert.Empty(cli.GetCommands());
         }
         #endregion
 
