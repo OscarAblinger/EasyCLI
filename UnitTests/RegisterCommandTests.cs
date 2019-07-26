@@ -205,7 +205,7 @@ namespace UnitTests
 
             var el = cli.GetCommands()[0];
             Assert.Equal(new string[] { "mock" }, el.Names);
-            Assert.Same((CommandMethod)CommandMock.MockCommandMethod, el.Method);
+            Assert.Equal(CommandMock.MockCommandMethod, el.Method);
             Assert.Equal(new string[0], el.Description);
         }
 
@@ -218,7 +218,7 @@ namespace UnitTests
 
             var el = cli.GetCommands()[0];
             Assert.Equal(new string[] { name }, el.Names);
-            Assert.Same((CommandMethod)CommandMock.MockCommandMethod, el.Method);
+            Assert.Equal(CommandMock.MockCommandMethod, el.Method);
             Assert.Equal(new string[] { description }, el.Description);
         }
 
@@ -227,11 +227,13 @@ namespace UnitTests
         public void CommandWasAdded5(ICli cli, string[] names, string description)
         {
             cli.RegisterCommand(names, CommandMock.MockCommandMethod, description);
-            Assert.Single(cli.GetCommands());
+            var commands = cli.GetCommands();
+            Assert.Single(commands.Distinct());
+            Assert.Equal(names.Length, commands.Length);
 
             var el = cli.GetCommands()[0];
             Assert.Equal(names, el.Names);
-            Assert.Same((CommandMethod)CommandMock.MockCommandMethod, el.Method);
+            Assert.Equal(CommandMock.MockCommandMethod, el.Method);
             Assert.Equal(new string[] { description }, el.Description);
         }
 
@@ -244,8 +246,8 @@ namespace UnitTests
 
             var el = cli.GetCommands()[0];
             Assert.Equal(new string[] { name }, el.Names);
-            Assert.Same((CommandMethod)CommandMock.MockCommandMethod, el.Method);
-            Assert.Equal(description, el.Description);
+            Assert.Equal(CommandMock.MockCommandMethod, el.Method);
+            Assert.Equal(description ?? new string[0], el.Description);
         }
 
         [Theory]
@@ -253,12 +255,14 @@ namespace UnitTests
         public void CommandWasAdded7(ICli cli, string[] names, string[] description)
         {
             cli.RegisterCommand(names, CommandMock.MockCommandMethod, description);
-            Assert.Single(cli.GetCommands());
+            var commands = cli.GetCommands();
+            Assert.Single(commands.Distinct());
+            Assert.Equal(names.Length, commands.Length);
 
             var el = cli.GetCommands()[0];
             Assert.Equal(names, el.Names);
-            Assert.Same((CommandMethod)CommandMock.MockCommandMethod, el.Method);
-            Assert.Equal(description, el.Description);
+            Assert.Equal(CommandMock.MockCommandMethod, el.Method);
+            Assert.Equal(description ?? new string[0], el.Description);
         }
         #endregion
     }
