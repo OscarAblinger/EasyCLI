@@ -91,6 +91,7 @@ namespace EasyCli.impl
         }
 
         internal Cli(IConfiguration config) {
+            Commands = new Dictionary<string, ICommand>();
             this.config = config;
         }
         #endregion
