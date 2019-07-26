@@ -1,4 +1,6 @@
-﻿using System;
+﻿using EasyCli;
+using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace UnitTests
@@ -23,6 +25,20 @@ namespace UnitTests
                 if (iteratedThroughAllIndices)
                     break;
             }
+        }
+
+        public static IEnumerable<object[]> AllCLIs() {
+            yield return new object[] { CliFactory.Create() };
+        }
+
+        public static IEnumerable<object[]> AllMergeCombinations(IEnumerable<object[]> first, IEnumerable<object[]> second)
+        {
+            if (first == null || second == null)
+                throw new ArgumentException("Neither of the two IEnumerables may be null");
+
+            return from f in first
+                   from s in second
+                   select f.Concat(s).ToArray();
         }
 
         private static object[] CreateObjectWithIndices<T>(T[] uniqueList, int[] indices)
