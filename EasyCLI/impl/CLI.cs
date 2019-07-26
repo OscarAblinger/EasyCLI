@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EasyCli.impl
 {
@@ -17,8 +18,20 @@ namespace EasyCli.impl
             return this;
         }
 
+        public ICli RegisterCommands(IEnumerable<ICommand> commands)
+        {
+            foreach(var command in commands)
+            {
+                RegisterCommand(command);
+            }
+            return this;
+        }
+
         public ICli RegisterCommand(string name, CommandMethod method, string description = "")
             => RegisterCommand(new string[] { name }, method, new string[] { description });
+
+        public ICli RegisterCommand(string[] names, CommandMethod method, string description)
+            => RegisterCommand(names, method, new string[] { description });
 
         public ICli RegisterCommand(string name, CommandMethod method, string[] description = null)
             => RegisterCommand(new string[] { name }, method, description);
@@ -42,8 +55,13 @@ namespace EasyCli.impl
         {
             return command.Method(this, new ArgumentsInfo(arguments));
         }
-
+       
         public Action WaitUntil() => throw new NotImplementedException();
+
+        public ICommand[] GetCommands()
+        {
+            return Commands.Values.ToArray();
+        }
         #endregion
 
         #region Private
