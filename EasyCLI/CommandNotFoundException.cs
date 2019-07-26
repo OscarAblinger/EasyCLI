@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace EasyCli.impl
+namespace EasyCli
 {
-    internal class CommandNotFoundException : Exception
+    public class CommandNotFoundException : Exception
     {
         public CommandNotFoundException()
         {
