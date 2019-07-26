@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EasyCli
 {
@@ -24,6 +25,12 @@ namespace EasyCli
         /// <returns>The original CLI for chaining commands</returns>
         ICli RegisterCommand(ICommand command);
         /// <summary>
+        /// Registers multiple new Commands at once
+        /// </summary>
+        /// <param name="commands">The commands to register</param>
+        /// <returns>The original CLI for chaining commands</returns>
+        ICli RegisterCommands(IEnumerable<ICommand> commands);
+        /// <summary>
         /// Registers a new Command
         /// </summary>
         /// <param name="name">The name by which the command can be invoked</param>
@@ -31,6 +38,14 @@ namespace EasyCli
         /// <param name="description">Description of the Command used in the help Command</param>
         /// <returns>The original CLI for chaining commands</returns>
         ICli RegisterCommand(string name, CommandMethod method, string description);
+        /// <summary>
+        /// Registers a new Command
+        /// </summary>
+        /// <param name="names">A list of names by which the command can be invoked</param>
+        /// <param name="method">The method that will be invoked</param>
+        /// <param name="description">Description of the Command used in the help Command</param>
+        /// <returns>The original CLI for chaining commands</returns>
+        ICli RegisterCommand(string[] names, CommandMethod method, string description);
         /// <summary>
         /// Registers a new Command
         /// </summary>
