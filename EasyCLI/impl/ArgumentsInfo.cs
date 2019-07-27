@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace EasyCli.impl
+namespace EasyCli.Impl
 {
     internal class ArgumentsInfo : IArgumentsInfo
     {

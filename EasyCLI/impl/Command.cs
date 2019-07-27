@@ -1,4 +1,4 @@
-﻿namespace EasyCli.impl
+﻿namespace EasyCli.Impl
 {
     internal class Command : ICommand
     {
