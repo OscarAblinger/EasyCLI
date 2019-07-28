@@ -1,14 +1,18 @@
 ﻿using System;
+using static EasyCli.OneOf;
 
 namespace EasyCli
 {
-    public class OneOf<T1, T2, T3>
+    public class OneOf
     {
         public enum WhichType
         {
             first, second, third
         }
+    }
 
+    public class OneOf<T1, T2, T3>
+    {
         public OneOf(T1 first)
         {
             First = first;
