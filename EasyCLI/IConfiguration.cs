@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace EasyCli
 {
-    public delegate void ExceptionCatchHandler(Exception ex);
+    public delegate void ExceptionCatchHandler(ICli cli, Exception ex);
 
     public interface IConfiguration
     {
