@@ -89,13 +89,6 @@ namespace EasyCli.ConsoleInterface
         /// </summary>
         void Flush();
 
-        /// <summary>
-        /// Clears the buffer and the output of display information
-        /// 
-        /// This method may do nothing.
-        /// </summary>
-        void Clear();
-
         #region Write
         void Write(char value);
         void Write(string value);

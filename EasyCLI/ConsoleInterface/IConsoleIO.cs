@@ -7,6 +7,13 @@
         ICursor Cursor { get; }
 
         /// <summary>
+        /// Clears the buffer and the output of display information
+        /// 
+        /// This method may do nothing.
+        /// </summary>
+        void Clear();
+
+        /// <summary>
         /// Remove a number of already printed characters.
         /// 
         /// This method may do nothing
