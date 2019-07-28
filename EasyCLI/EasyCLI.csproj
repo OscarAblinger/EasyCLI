@@ -5,8 +5,4 @@
     <RootNamespace>EasyCli</RootNamespace>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="accessors\" />
-  </ItemGroup>
-
 </Project>
