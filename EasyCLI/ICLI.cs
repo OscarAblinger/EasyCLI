@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EasyCli.ConsoleInterface;
+using System;
 using System.Collections.Generic;
 
 namespace EasyCli
@@ -89,6 +90,18 @@ namespace EasyCli
         /// </summary>
         /// <returns>The command that has to be invoked to lift the suspense</returns>
         Action WaitUntil();
+        #endregion
+
+        #region IO Methods
+        /// <summary>
+        /// IO object
+        /// </summary>
+        IConsoleIO IO { get; }
+
+        /// <summary>
+        /// Convenience-Proxy to IO.Out
+        /// </summary>
+        IOutput Out { get; }
         #endregion
     }
 }
