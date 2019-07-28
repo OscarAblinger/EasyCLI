@@ -10,7 +10,7 @@ namespace EasyCli
     {
         IConsoleIO IOImplementation { get; set; }
 
-        Either<string, Action<ICli>> Greeting { get; set; }
+        OneOf<string, string[], Action<ICli>> Greeting { get; set; }
         Either<string, Action<ICli>> Prompt { get; set; }
 
         ExceptionCatchHandler ExceptionCatchHandler { get; set; }
