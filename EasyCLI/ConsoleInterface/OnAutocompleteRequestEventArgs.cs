@@ -1,6 +1,7 @@
 ﻿namespace EasyCli.ConsoleInterface
 {
-    public class OnAutocompleteRequestEventArgs
+    public struct OnAutocompleteRequestEventArgs
     {
+        public string LineUpToCursor { get; set; }
     }
 }
