@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using EasyCli.ConsoleInterface;
 
 namespace EasyCli.Impl
 {
@@ -9,7 +10,8 @@ namespace EasyCli.Impl
         #region Public Interface
         public void Run() => Console.ReadKey();
 
-        public void LoadConfiguration(IConfiguration configuration) => throw new NotImplementedException();
+        public IConsoleIO IO => config.IOImplementation;
+        public IOutput Out => IO.Out;
 
         public ICli RegisterCommand(ICommand command)
         {
@@ -93,6 +95,7 @@ namespace EasyCli.Impl
         internal Cli(IConfiguration config) {
             Commands = new Dictionary<string, ICommand>();
             this.config = config;
+            RegisterCommands(config.Commands);
         }
         #endregion
     }
