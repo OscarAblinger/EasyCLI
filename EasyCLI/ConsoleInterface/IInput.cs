@@ -2,19 +2,15 @@
 
 namespace EasyCli.ConsoleInterface
 {
-    public delegate void OnAutocompleteRequestEventHandler(IInput source, OnAutocompleteRequestEventArgs args)
+    public delegate void OnAutocompleteRequestEventHandler(IInput source, OnAutocompleteRequestEventArgs args);
 
     public interface IInput : IDisposable
     {
         /// <summary>
-        /// Obains the next character or function pressed by the user.
-        /// The pressed key is optionally written to the output
+        /// Reads a line of characters and returns the data as a string
         /// </summary>
-        /// <param name="noDisplay">
-        /// If True will not display the pressed key, otherwise it will
-        /// </param>
-        /// <returns>Information about the pressed key</returns>
-        ConsoleKeyInfo ReadKey(bool noDisplay = false);
+        /// <returns>The next line from the reader, or null if all characters have been read.</returns>
+        string ReadLine();
 
         /// <summary>
         /// Event that should get thrown if the user wants to autocomplete
