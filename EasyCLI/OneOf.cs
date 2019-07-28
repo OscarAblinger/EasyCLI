@@ -47,6 +47,24 @@ namespace EasyCli
             }
         }
 
+        public void Match(Action<T1> firstTransform, Action<T2> secondTransform, Action<T3> thirdTransform)
+        {
+            switch (FilledType)
+            {
+                case WhichType.first:
+                    firstTransform(First);
+                    break;
+                case WhichType.second:
+                    secondTransform(Second);
+                    break;
+                case WhichType.third:
+                    thirdTransform(Third);
+                    break;
+                default:
+                    throw new ArgumentException(); // really should be impossible
+            }
+        }
+
         public static implicit operator OneOf<T1, T2, T3>(T1 first)
         {
             return new OneOf<T1, T2, T3>(first);

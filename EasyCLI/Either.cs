@@ -25,6 +25,18 @@ namespace EasyCli
             return IsFirst ? firstTransform(First) : secondTransform(Second);
         }
 
+        public void Match(Action<T1> firstTransform, Action<T2> secondTransform)
+        {
+            if (IsFirst)
+            {
+                firstTransform(First);
+            }
+            else
+            {
+                secondTransform(Second);
+            }
+        }
+
         public static implicit operator Either<T1, T2>(T1 first)
         {
             return new Either<T1, T2>(first);
