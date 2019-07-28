@@ -51,6 +51,47 @@ namespace EasyCli.ConsoleInterface
                     return ConsoleColor.White;
             }
         }
+
+        public static OutputColor ToOutputColor(this ConsoleColor color)
+        {
+            switch (color)
+            {
+                case ConsoleColor.Black:
+                    return OutputColor.Black;
+                case ConsoleColor.Blue:
+                    return OutputColor.Blue;
+                case ConsoleColor.Cyan:
+                    return OutputColor.Cyan;
+                case ConsoleColor.DarkBlue:
+                    return OutputColor.DarkBlue;
+                case ConsoleColor.DarkCyan:
+                    return OutputColor.DarkCyan;
+                case ConsoleColor.DarkGray:
+                    return OutputColor.DarkGray;
+                case ConsoleColor.DarkGreen:
+                    return OutputColor.DarkGreen;
+                case ConsoleColor.DarkMagenta:
+                    return OutputColor.DarkMagenta;
+                case ConsoleColor.DarkRed:
+                    return OutputColor.DarkRed;
+                case ConsoleColor.DarkYellow:
+                    return OutputColor.DarkYellow;
+                case ConsoleColor.Gray:
+                    return OutputColor.Gray;
+                case ConsoleColor.Green:
+                    return OutputColor.Green;
+                case ConsoleColor.Magenta:
+                    return OutputColor.Magenta;
+                case ConsoleColor.Red:
+                    return OutputColor.Red;
+                case ConsoleColor.Yellow:
+                    return OutputColor.Yellow;
+                case ConsoleColor.White:
+                    return OutputColor.White;
+                default:
+                    return OutputColor.White;
+            }
+        }
     }
 
     public interface IOutput : IDisposable
