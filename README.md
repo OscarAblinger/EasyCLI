@@ -1,3 +1,5 @@
+> Important note: This project is heavily WIP – Going so far that a rename is rather likely
+
 # Easy CLI
 
 This library allows you to easily set up a CLI for your project.
