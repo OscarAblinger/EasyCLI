@@ -1,4 +1,6 @@
 ﻿using EasyCli;
+using System.Collections;
+using System.Collections.Generic;
 using Xunit;
 
 namespace UnitTests
@@ -96,6 +98,20 @@ namespace UnitTests
                     return true;
                 }
                 );
+        }
+
+        [Fact]
+        public void ImplicitConversionForFirstWorks()
+        {
+            Either<string, int> implicitStr = "implicitString";
+            Assert.Equal(new Either<string, int>("implicitString"), implicitStr);
+        }
+
+        [Fact]
+        public void ImplicitConversionForSecondWorks()
+        {
+            Either<string, int> implicitInt = 5;
+            Assert.Equal(new Either<string, int>(5), implicitInt);
         }
     }
 }

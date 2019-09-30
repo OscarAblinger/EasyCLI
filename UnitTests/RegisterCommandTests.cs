@@ -92,6 +92,13 @@ namespace UnitTests
         #region Throws correct errors
         [Theory]
         [MemberData(nameof(AllCLIs))]
+        public void ThrowsErrorForInvalidCommand(ICli cli)
+        {
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommand(null));
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommands(null));
+        }
+        [Theory]
+        [MemberData(nameof(AllCLIs))]
         public void ThrowsErrorForInvalidNameParameters(ICli cli)
         {
             foreach (var invalidName in new string[] { null, "" })
@@ -127,6 +134,8 @@ namespace UnitTests
                 Assert.Throws<ArgumentException>(() => cli.RegisterCommand("validName", CommandMock.MockCommandMethod, invalidDescription));
                 Assert.Throws<ArgumentException>(() => cli.RegisterCommand(new string[] { "validName" }, CommandMock.MockCommandMethod, invalidDescription));
             }
+            Assert.Throws<ArgumentException>(() => cli.RegisterCommand(CommandMock.Create(new string[] { "test" }, null)));
+
             Assert.Empty(cli.GetCommands());
         }
 

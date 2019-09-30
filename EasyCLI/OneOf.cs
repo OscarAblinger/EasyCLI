@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using static EasyCli.OneOf;
 
 namespace EasyCli
@@ -82,6 +83,26 @@ namespace EasyCli
         public static implicit operator OneOf<T1, T2, T3>(T3 third)
         {
             return new OneOf<T1, T2, T3>(third);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var of = obj as OneOf<T1, T2, T3>;
+            return of != null &&
+                   EqualityComparer<T1>.Default.Equals(First, of.First) &&
+                   EqualityComparer<T2>.Default.Equals(Second, of.Second) &&
+                   EqualityComparer<T3>.Default.Equals(Third, of.Third) &&
+                   FilledType == of.FilledType;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = -1165374187;
+            hashCode = hashCode * -1521134295 + EqualityComparer<T1>.Default.GetHashCode(First);
+            hashCode = hashCode * -1521134295 + EqualityComparer<T2>.Default.GetHashCode(Second);
+            hashCode = hashCode * -1521134295 + EqualityComparer<T3>.Default.GetHashCode(Third);
+            hashCode = hashCode * -1521134295 + FilledType.GetHashCode();
+            return hashCode;
         }
     }
 }

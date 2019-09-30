@@ -7,7 +7,7 @@ namespace UnitTests
     public class RunCommandTests : TestHelper
     {
         #region Buildup
-        internal RunCommandTests()
+        public RunCommandTests()
         {
             helloCommand = CommandMock.Create(new string[] { "hello", "hi" }, new string[] { "This is the hello command" });
             echoCommand = CommandMock.Create(new string[] { "echo", "helloShell" }, new string[] { "This is the echo command" });

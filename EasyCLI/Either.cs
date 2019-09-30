@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EasyCli
 {
@@ -45,6 +46,24 @@ namespace EasyCli
         public static implicit operator Either<T1, T2>(T2 second)
         {
             return new Either<T1, T2>(second);
+        }
+
+        public override bool Equals(object obj)
+        {
+            var either = obj as Either<T1, T2>;
+            return either != null &&
+                   EqualityComparer<T1>.Default.Equals(First, either.First) &&
+                   EqualityComparer<T2>.Default.Equals(Second, either.Second) &&
+                   IsFirst == either.IsFirst;
+        }
+
+        public override int GetHashCode()
+        {
+            var hashCode = 307537863;
+            hashCode = hashCode * -1521134295 + EqualityComparer<T1>.Default.GetHashCode(First);
+            hashCode = hashCode * -1521134295 + EqualityComparer<T2>.Default.GetHashCode(Second);
+            hashCode = hashCode * -1521134295 + IsFirst.GetHashCode();
+            return hashCode;
         }
     }
 }

@@ -161,5 +161,27 @@ namespace UnitTests
                 }
                 );
         }
+
+        [Fact]
+        public void ImplicitConversionForFirstWorks()
+        {
+            OneOf<string, int, float> implicitStr = "implicitString";
+            Assert.Equal(new OneOf<string, int, float>("implicitString"), implicitStr);
+        }
+
+        [Fact]
+        public void ImplicitConversionForSecondWorks()
+        {
+            OneOf<string, int, float> implicitInt = 5;
+            Assert.Equal(new OneOf<string, int, float>(5), implicitInt);
+        }
+
+        [Fact]
+        public void ImplicitConversionForThirdWorks()
+        {
+            float f = 5.3f;
+            OneOf<string, int, float> implicitFloat = f;
+            Assert.Equal(new OneOf<string, int, float>(f), implicitFloat);
+        }
     }
 }

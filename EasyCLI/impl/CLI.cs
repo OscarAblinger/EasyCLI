@@ -22,6 +22,9 @@ namespace EasyCli.Impl
 
         public ICli RegisterCommands(IEnumerable<ICommand> commands)
         {
+            if (commands == null)
+                throw new ArgumentException("commands may not be null");
+
             foreach(var command in commands)
             {
                 RegisterCommand(command);
@@ -82,6 +85,10 @@ namespace EasyCli.Impl
                 throw new ArgumentException("Cannot register command: Description shouldn't be null (use an empty array instead)");
             if (command.Description.Any(des => des == null))
                 throw new ArgumentException("No description entry may be null");
+            if (command.Names.Distinct().Count() < command.Names.Length)
+                throw new DuplicateCommandException("Command has the same name twice: " + string.Join(", ", command.Names));
+            if (command.Names.Intersect(Commands.Keys).Any())
+                throw new DuplicateCommandException("One or more of the follwing names were already registered: " + string.Join(", ", command.Names));
         }
 
         private void SaveCommandInList(ICommand command)
@@ -95,7 +102,10 @@ namespace EasyCli.Impl
         internal Cli(IConfiguration config) {
             Commands = new Dictionary<string, ICommand>();
             this.config = config;
-            RegisterCommands(config.Commands);
+            if (config.Commands != null)
+            {
+                RegisterCommands(config.Commands);
+            }
         }
         #endregion
     }
